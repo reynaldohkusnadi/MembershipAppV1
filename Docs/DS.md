@@ -1,4 +1,4 @@
-# Supabase Data Structure – Artisan Membership App
+# Supabase Data Structure – Artisan Membership App!
 
 > **Scope:** Complete Postgres DDL + RLS policies for Supabase. Copy–paste into the **SQL Editor** in your project (or execute via Cursor migration scripts). All IDs use **UUID v4** unless noted. Timestamps default to `timezone('utc', now())`.
 
