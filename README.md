@@ -139,25 +139,120 @@ The app uses a comprehensive PostgreSQL schema with:
 - Real-time user data integration
 - Sample data seeding
 
-### 🔄 Next Steps
-
 **Step 4: Authentication Flow**
 - Login/signup screen implementation
-- Email verification handling
-- Password reset functionality
-- Profile management
+- Profile management and onboarding
+- Display name and avatar handling
+- Tier progression visualization
 
-**Step 5: Core Features**
-- Rewards redemption with QR codes
-- Points transaction history
-- Promotional content display
-- Restaurant locator with maps
+**Step 5: Core Features Integration ✅**
+- **Real Data Integration**: All screens now connect to live database data
+- **Home Screen**: Shows real featured rewards, user points, and nearest outlets
+- **Rewards Screen**: Complete catalog with category filtering and live data
+- **News Screen**: Real promotions and events from database
+- **Restaurants Screen**: Live brands data with outlet counts
+- **Redemption Flow**: Full modal with QR voucher generation
+- **Real-time Updates**: Points balance and user data update live
+- **Error Handling**: Proper loading states and empty states
+- **Navigation**: Inter-screen navigation between features
+
+### 🔄 Next Steps
 
 **Step 6: Advanced Features**
-- Push notifications
-- Offline support
+- Points transaction history screen
+- User vouchers and redemption history
+- Push notifications setup
+- Location-based outlet filtering
+
+**Step 7: Polish & Testing**
+- Comprehensive error handling
 - Performance optimization
-- Testing implementation
+- Unit and integration tests
+- User experience refinements
+
+**Step 8: Production Ready**
+- Environment configuration
+- Build optimization
+- App store preparation
+- Analytics integration
+
+## Current Features
+
+### 🏠 Home Screen
+- Dynamic user greeting with real display name
+- Live points balance display
+- Featured rewards carousel with real data
+- Nearest outlets preview
+- Quick action buttons for key features
+
+### 🎁 Rewards Screen
+- Complete rewards catalog from database
+- Category filtering (All, Discounts, Freebies, Experiences)
+- Interactive reward cards
+- **Full redemption flow with QR voucher generation**
+- Proper loading and empty states
+
+### 📰 News & Promotions
+- Real promotions data from database
+- Separated events and promotional offers
+- Rich content display with images
+- Featured news section
+
+### 🍽️ Restaurants Screen
+- Live brands data with outlet counts
+- Quick access actions
+- Featured outlet highlighting
+- Brand-specific information
+
+### 🔐 Authentication
+- Complete signup/login flow
+- Profile management
+- Tier visualization
+- Onboarding experience
+
+## Technical Implementation
+
+### Real Data Integration
+All screens now connect to the Supabase database using React Query hooks:
+- `useRewards()` - Fetch all available rewards
+- `useRewardsByCategory()` - Category-filtered rewards
+- `useBrands()` - Restaurant brands
+- `useOutlets()` - Restaurant locations
+- `usePromotions()` - Active promotions and events
+- `useRedeemReward()` - Reward redemption with QR voucher
+
+### Redemption Flow
+- Point balance validation
+- Atomic database transaction
+- QR voucher generation
+- Real-time points deduction
+- Error handling and recovery
+
+### User Experience
+- Loading states for all data fetching
+- Empty states for missing content
+- Real-time balance updates
+- Smooth navigation between screens
+- Consistent visual feedback
+
+## Testing the App
+
+1. **Authentication**: Create account or login
+2. **Home Screen**: View your points and featured content
+3. **Rewards**: Browse catalog and redeem rewards (requires sufficient points)
+4. **News**: Check promotions and events
+5. **Restaurants**: Explore brands and outlets
+6. **Profile**: Manage account and view tier progress
+
+## Database Status
+
+The app is connected to a live Supabase database with:
+- ✅ User profiles and authentication
+- ✅ Points system with transaction ledger
+- ✅ Rewards catalog with categories
+- ✅ Restaurant brands and outlets
+- ✅ Promotions and events
+- ✅ Redemption tracking with QR vouchers
 
 ## API Integration
 

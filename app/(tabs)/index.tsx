@@ -1,57 +1,53 @@
 import { Header } from '@/components/ui/Header';
+import { RewardCard } from '@/components/ui/RewardCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { useOutlets, useRewards } from '@/hooks/useData';
 import { useAuthStore } from '@/store/auth-store';
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+    ActivityIndicator,
+    Dimensions,
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-// Mock data for development
-const mockRewards = [
-  {
-    id: '1',
-    title: 'GARIBALDI',
-    brand: 'ROMA',
-    pointsCost: 550,
-    imageUrl: 'https://picsum.photos/160/120?random=1',
-  },
-  {
-    id: '2',
-    title: 'MARGHERITA PIZZA',
-    brand: 'CAFFÈ MILANO',
-    pointsCost: 525,
-    imageUrl: 'https://picsum.photos/160/120?random=2',
-  },
-  {
-    id: '3',
-    title: 'NUTELLA & BANANA PO...',
-    brand: 'LOEWY',
-    pointsCost: 325,
-    imageUrl: 'https://picsum.photos/160/120?random=3',
-  },
-];
-
-const mockOutlets = [
-  {
-    id: '1',
-    name: 'Union Restaurant',
-    imageUrl: 'https://picsum.photos/200/120?random=4',
-  },
-  {
-    id: '2', 
-    name: 'Roma Bistro',
-    imageUrl: 'https://picsum.photos/200/120?random=5',
-  },
-];
-
 export default function HomeScreen() {
-  const { profile } = useAuthStore();
+  const { profile, user } = useAuthStore();
+  const router = useRouter();
+  
+  // Fetch real data
+  const { data: rewards, isLoading: rewardsLoading } = useRewards();
+  const { data: outlets, isLoading: outletsLoading } = useOutlets();
+  
+  // Get featured rewards (first 3)
+  const featuredRewards = rewards?.slice(0, 3) || [];
+  
+  // Get nearest outlets (first 2 for now - later we'll add location-based filtering)
+  const nearestOutlets = outlets?.slice(0, 2) || [];
+
+  const handleRewardPress = (rewardId: string) => {
+    // Navigate to reward detail (placeholder for now)
+    console.log('Navigate to reward:', rewardId);
+  };
+
+  const handleSeeAllRewards = () => {
+    router.push('/rewards');
+  };
+
+  const handleSeeAllOutlets = () => {
+    router.push('/restaurants');
+  };
 
   return (
     <View style={styles.container}>
       <Header
-        userName="REYNALDO KUSNADI"
-        points={500}
         showUser={true}
         showNotification={true}
         onNotificationPress={() => console.log('Notification pressed')}
@@ -67,10 +63,10 @@ export default function HomeScreen() {
           />
           <View style={styles.bannerOverlay}>
             <Text style={styles.bannerTitle}>
-              AUTOMATIC UPGRADE TO{'\n'}BLACK TIER MEMBERSHIP &{'\n'}5,000 BONUS POINTS
+              WELCOME TO ARTISAN{'\n'}MEMBERSHIP PROGRAM
             </Text>
             <Text style={styles.bannerSubtitle}>
-              FOR PLATINUM CARD® BCA MEMBERS{'\n'}until 31 December 2025
+              Earn points with every purchase and{'\n'}unlock exclusive rewards
             </Text>
           </View>
         </View>
@@ -79,52 +75,98 @@ export default function HomeScreen() {
         <SectionHeader 
           title="FEATURED REWARDS" 
           showSeeAll={true}
-          onSeeAllPress={() => console.log('See all rewards')}
+          onSeeAllPress={handleSeeAllRewards}
         />
         
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.rewardsContainer}
-        >
-          {mockRewards.map((reward) => (
-            <View key={reward.id} style={styles.rewardCard}>
-              <Image
-                source={{ uri: reward.imageUrl }}
-                style={styles.rewardImage}
-                resizeMode="cover"
+        {rewardsLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="small" color="#D4AF37" />
+          </View>
+        ) : (
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.rewardsContainer}
+          >
+            {featuredRewards.map((reward) => (
+              <RewardCard
+                key={reward.id}
+                id={reward.id.toString()}
+                title={reward.title}
+                brand="Artisan"
+                pointsCost={reward.cost}
+                imageUrl={reward.image_url || `https://picsum.photos/160/120?random=${reward.id}`}
+                onPress={() => handleRewardPress(reward.id.toString())}
               />
-              <View style={styles.rewardContent}>
-                <Text style={styles.rewardBrand}>{reward.brand}</Text>
-                <Text style={styles.rewardTitle}>{reward.title}</Text>
-                <Text style={styles.rewardPoints}>{reward.pointsCost} U+Points</Text>
-              </View>
-            </View>
-          ))}
-        </ScrollView>
+            ))}
+          </ScrollView>
+        )}
 
         {/* Outlets Section */}
         <SectionHeader 
           title="OUTLETS NEAREST TO YOU" 
           showSeeAll={true}
-          onSeeAllPress={() => console.log('See all outlets')}
+          onSeeAllPress={handleSeeAllOutlets}
         />
         
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.outletsContainer}
-        >
-          {mockOutlets.map((outlet) => (
-            <View key={outlet.id} style={styles.outletCard}>
-              <Image
-                source={{ uri: outlet.imageUrl }}
-                style={styles.outletImage}
-                resizeMode="cover"
-              />
-            </View>
-          ))}
-        </ScrollView>
+        {outletsLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="small" color="#D4AF37" />
+          </View>
+        ) : (
+          <ScrollView 
+            horizontal 
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.outletsContainer}
+          >
+            {nearestOutlets.map((outlet) => (
+              <TouchableOpacity 
+                key={outlet.id} 
+                style={styles.outletCard}
+                onPress={() => console.log('Navigate to outlet:', outlet.id)}
+              >
+                <Image
+                  source={{ 
+                    uri: `https://picsum.photos/200/120?random=${outlet.id + 100}` 
+                  }}
+                  style={styles.outletImage}
+                  resizeMode="cover"
+                />
+                <View style={styles.outletOverlay}>
+                  <Text style={styles.outletName}>{outlet.name}</Text>
+                  <Text style={styles.outletAddress}>
+                    {outlet.address ? outlet.address.split(',')[0] : 'Location available'}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        )}
+
+        {/* Quick Actions */}
+        <View style={styles.quickActionsContainer}>
+          <Text style={styles.quickActionsTitle}>QUICK ACTIONS</Text>
+          <View style={styles.actionsRow}>
+            <TouchableOpacity style={styles.actionButton}>
+              <Text style={styles.actionIcon}>📱</Text>
+              <Text style={styles.actionText}>Scan & Pay</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.actionButton}
+              onPress={handleSeeAllRewards}
+            >
+              <Text style={styles.actionIcon}>🎁</Text>
+              <Text style={styles.actionText}>Redeem</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+              style={styles.actionButton}
+              onPress={handleSeeAllOutlets}
+            >
+              <Text style={styles.actionIcon}>🍽️</Text>
+              <Text style={styles.actionText}>Menu</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ScrollView>
     </View>
   );
@@ -171,58 +213,90 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     opacity: 0.9,
   },
+  loadingContainer: {
+    padding: 20,
+    alignItems: 'center',
+  },
   rewardsContainer: {
     paddingHorizontal: 16,
     paddingBottom: 20,
-  },
-  rewardCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginHorizontal: 4,
-    width: 160,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  rewardImage: {
-    width: '100%',
-    height: 120,
-    borderTopLeftRadius: 12,
-    borderTopRightRadius: 12,
-  },
-  rewardContent: {
-    padding: 12,
-  },
-  rewardBrand: {
-    fontSize: 12,
-    color: '#9CA3AF',
-    marginBottom: 4,
-    textTransform: 'uppercase',
-  },
-  rewardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 8,
-  },
-  rewardPoints: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#D4AF37',
   },
   outletsContainer: {
     paddingHorizontal: 16,
     paddingBottom: 20,
   },
   outletCard: {
-    marginHorizontal: 4,
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
+    marginHorizontal: 4,
+    width: 200,
+    height: 120,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+    elevation: 3,
+    position: 'relative',
     overflow: 'hidden',
   },
   outletImage: {
-    width: 200,
-    height: 120,
+    width: '100%',
+    height: '100%',
+  },
+  outletOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0,0,0,0.7)',
+    padding: 12,
+  },
+  outletName: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  outletAddress: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    opacity: 0.9,
+  },
+  quickActionsContainer: {
+    padding: 20,
+    backgroundColor: '#F9FAFB',
+    marginTop: 10,
+  },
+  quickActionsTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#111827',
+    marginBottom: 16,
+  },
+  actionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  actionButton: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginHorizontal: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  actionIcon: {
+    fontSize: 24,
+    marginBottom: 8,
+  },
+  actionText: {
+    fontSize: 12,
+    fontWeight: '500',
+    color: '#374151',
   },
 });

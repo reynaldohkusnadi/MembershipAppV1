@@ -151,9 +151,10 @@ create index if not exists pos_tx_user_idx on public.pos_transactions (user_id, 
 
 -- profiles
 alter table public.profiles enable row level security;
-create policy "Users can view & update own profile" on public.profiles
-  for select, update
-  using ( id = auth.uid() );
+create policy "Users can view own profile" on public.profiles
+  for select using ( id = auth.uid() );
+create policy "Users can update own profile" on public.profiles
+  for update using ( id = auth.uid() );
 
 -- points_ledger
 alter table public.points_ledger enable row level security;
@@ -162,10 +163,12 @@ create policy "Users view own ledger" on public.points_ledger
 
 -- redemptions
 alter table public.redemptions enable row level security;
-create policy "Users CRUD own redemptions" on public.redemptions
-  for select, insert, update
-  using ( user_id = auth.uid() )
-  with check ( user_id = auth.uid() );
+create policy "Users can view own redemptions" on public.redemptions
+  for select using ( user_id = auth.uid() );
+create policy "Users can insert own redemptions" on public.redemptions
+  for insert with check ( user_id = auth.uid() );
+create policy "Users can update own redemptions" on public.redemptions
+  for update using ( user_id = auth.uid() );
 
 -- Read‑only public access
 alter table public.rewards     enable row level security;

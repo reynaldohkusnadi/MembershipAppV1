@@ -11,6 +11,11 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { AuthProvider } from '@/providers/AuthProvider';
 import { QueryProvider } from '@/providers/QueryProvider';
 
+// 21st.dev Toolbar imports (web only)
+import { ReactPlugin } from '@21st-extension/react';
+import { TwentyFirstToolbar } from '@21st-extension/toolbar-react';
+import { Platform } from 'react-native';
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -42,6 +47,14 @@ export default function RootLayout() {
             </Stack>
             <StatusBar style="auto" />
           </ThemeProvider>
+          {/* 21st.dev Toolbar - only render on web platform in development */}
+          {Platform.OS === 'web' && __DEV__ && (
+            <TwentyFirstToolbar
+              config={{
+                plugins: [ReactPlugin]
+              }}
+            />
+          )}
         </AuthWrapper>
       </AuthProvider>
     </QueryProvider>
