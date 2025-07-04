@@ -58,7 +58,7 @@ export default function HomeScreen() {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Promotional Banner */}
         <View style={styles.bannerContainer}>
-          <Image
+        <Image
             source={{ uri: 'https://picsum.photos/400/200?random=banner' }}
             style={styles.bannerImage}
             resizeMode="cover"

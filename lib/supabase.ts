@@ -198,6 +198,13 @@ export interface Database {
           lat: number | null;
           lng: number | null;
           phone: string | null;
+          opening_hours: any | null; // JSONB
+          menu_url: string | null;
+          website_url: string | null;
+          instagram_url: string | null;
+          email: string | null;
+          image_url: string | null;
+          description: string | null;
           created_at: string;
         };
         Insert: {
@@ -207,6 +214,13 @@ export interface Database {
           lat?: number | null;
           lng?: number | null;
           phone?: string | null;
+          opening_hours?: any | null;
+          menu_url?: string | null;
+          website_url?: string | null;
+          instagram_url?: string | null;
+          email?: string | null;
+          image_url?: string | null;
+          description?: string | null;
         };
         Update: {
           brand_id?: number;
@@ -215,6 +229,13 @@ export interface Database {
           lat?: number | null;
           lng?: number | null;
           phone?: string | null;
+          opening_hours?: any | null;
+          menu_url?: string | null;
+          website_url?: string | null;
+          instagram_url?: string | null;
+          email?: string | null;
+          image_url?: string | null;
+          description?: string | null;
         };
       };
       promotions: {

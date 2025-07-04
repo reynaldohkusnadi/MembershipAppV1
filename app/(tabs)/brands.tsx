@@ -1,3 +1,5 @@
+import { LocationSelectionScreen } from '@/components/LocationSelectionScreen';
+import { RestaurantDetailScreen } from '@/components/RestaurantDetailScreen';
 import { Header } from '@/components/ui/Header';
 import { useBrands, useOutlets } from '@/hooks/useData';
 import React from 'react';
@@ -15,15 +17,68 @@ export default function RestaurantsScreen() {
   const { data: brands, isLoading: brandsLoading } = useBrands();
   const { data: outlets, isLoading: outletsLoading } = useOutlets();
 
+  const [selectedBrand, setSelectedBrand] = React.useState<any>(null);
+  const [selectedOutlet, setSelectedOutlet] = React.useState<any>(null);
+  const [navigationState, setNavigationState] = React.useState<'brands' | 'locations' | 'restaurant'>('brands');
+
   const handleBrandPress = (brandId: number) => {
-    console.log('Navigate to brand detail:', brandId);
-    // TODO: Navigate to brand detail screen with outlets
+    const brand = brands?.find(b => b.id === brandId);
+    if (!brand) return;
+
+    const brandOutlets = outlets?.filter(outlet => outlet.brand_id === brandId) || [];
+    
+    if (brandOutlets.length === 1) {
+      // Single outlet - go directly to restaurant detail
+      setSelectedOutlet(brandOutlets[0]);
+      setNavigationState('restaurant');
+    } else {
+      // Multiple outlets - show location selection
+      setSelectedBrand(brand);
+      setNavigationState('locations');
+    }
+  };
+
+  const handleLocationSelect = (outlet: any) => {
+    setSelectedOutlet(outlet);
+    setNavigationState('restaurant');
+  };
+
+  const handleBackToLocations = () => {
+    setNavigationState('locations');
+    setSelectedOutlet(null);
+  };
+
+  const handleBackToBrands = () => {
+    setNavigationState('brands');
+    setSelectedBrand(null);
+    setSelectedOutlet(null);
   };
 
   const getOutletCountForBrand = (brandId: number) => {
     return outlets?.filter(outlet => outlet.brand_id === brandId).length || 0;
   };
 
+  // Handle different navigation states
+  if (navigationState === 'restaurant' && selectedOutlet) {
+    return (
+      <RestaurantDetailScreen 
+        outlet={selectedOutlet} 
+        onBack={selectedBrand ? handleBackToLocations : handleBackToBrands}
+      />
+    );
+  }
+
+  if (navigationState === 'locations' && selectedBrand) {
+    return (
+      <LocationSelectionScreen 
+        brand={selectedBrand}
+        onLocationSelect={handleLocationSelect}
+        onBack={handleBackToBrands}
+      />
+    );
+  }
+
+  // Default brands listing screen
   return (
     <View style={styles.container}>
       <Header title="BRANDS" />
@@ -99,7 +154,13 @@ export default function RestaurantsScreen() {
         {outlets && outlets.length > 0 && (
           <View style={styles.featuredSection}>
             <Text style={styles.sectionTitle}>FEATURED OUTLET</Text>
-            <View style={styles.featuredOutlet}>
+            <TouchableOpacity 
+              style={styles.featuredOutlet}
+              onPress={() => {
+                setSelectedOutlet(outlets[0]);
+                setNavigationState('restaurant');
+              }}
+            >
               <Image
                 source={{ uri: `https://picsum.photos/300/160?random=${outlets[0].id + 50}` }}
                 style={styles.featuredImage}
@@ -111,11 +172,11 @@ export default function RestaurantsScreen() {
                 <Text style={styles.featuredAddress}>
                   {outlets[0].address || 'Address available soon'}
                 </Text>
-                <TouchableOpacity style={styles.viewDetailsButton}>
+                <View style={styles.viewDetailsButton}>
                   <Text style={styles.viewDetailsText}>View Details</Text>
-                </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           </View>
         )}
       </ScrollView>
