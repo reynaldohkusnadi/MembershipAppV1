@@ -1,6 +1,7 @@
 import { Header } from '@/components/ui/Header';
 import { RewardCard } from '@/components/ui/RewardCard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
+import { theme } from '@/constants/Theme';
 import { useOutlets, useRewards } from '@/hooks/useData';
 import { useAuthStore } from '@/store/auth-store';
 import { useRouter } from 'expo-router';
@@ -42,7 +43,8 @@ export default function HomeScreen() {
   };
 
   const handleSeeAllOutlets = () => {
-    router.push('/restaurants');
+    // router.push('/restaurants'); // Route not available yet
+    console.log('Navigate to outlets');
   };
 
   return (
@@ -80,7 +82,7 @@ export default function HomeScreen() {
         
         {rewardsLoading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="small" color="#D4AF37" />
+            <ActivityIndicator size="small" color={theme.colors.primary} />
           </View>
         ) : (
           <ScrollView 
@@ -111,7 +113,7 @@ export default function HomeScreen() {
         
         {outletsLoading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="small" color="#D4AF37" />
+            <ActivityIndicator size="small" color={theme.colors.primary} />
           </View>
         ) : (
           <ScrollView 
@@ -175,14 +177,14 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.backgroundShades.primary,  // Background #F0F0EC from design.json
   },
   content: {
     flex: 1,
   },
   bannerContainer: {
-    margin: 20,
-    borderRadius: 12,
+    margin: theme.grid.margin,                               // 16px margin from design.json
+    borderRadius: theme.radius.md,                           // Card radius 12px from design.json
     overflow: 'hidden',
     height: 200,
     position: 'relative',
@@ -197,106 +199,113 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    padding: 20,
+    backgroundColor: 'rgba(45, 45, 45, 0.6)',               // Dark overlay using header background
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: theme.spacing[4],                               // 16px padding from design.json
   },
   bannerTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#FFFFFF',
-    marginBottom: 8,
-    lineHeight: 24,
+    fontSize: theme.typography.fontSize.headingMd,          // 24px heading md from design.json
+    fontWeight: theme.typography.fontWeight.semibold,       // 600 weight from design.json
+    lineHeight: theme.typography.lineHeight.headingMd,      // 32px line height from design.json
+    letterSpacing: theme.typography.letterSpacing.headingMd, // 1px letter spacing from design.json
+    color: theme.colors.surface,                            // White text on dark overlay
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    textAlign: 'center',
+    textTransform: 'uppercase',                             // Uppercase from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   bannerSubtitle: {
-    fontSize: 12,
-    color: '#FFFFFF',
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontWeight: theme.typography.fontWeight.normal,         // 400 weight from design.json
+    lineHeight: theme.typography.lineHeight.body,           // 24px line height from design.json
+    color: theme.colors.surface,                            // White text
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    textAlign: 'center',
     opacity: 0.9,
   },
   loadingContainer: {
-    padding: 20,
+    padding: theme.spacing[4],                               // 16px padding
     alignItems: 'center',
   },
   rewardsContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingHorizontal: theme.grid.margin,                   // 16px margin from design.json
+    paddingBottom: theme.spacing.withinSection,             // 16px within section spacing
   },
   outletsContainer: {
-    paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingHorizontal: theme.grid.margin,                   // 16px margin from design.json
+    paddingBottom: theme.spacing.betweenSections,           // 32px between sections spacing
   },
   outletCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    marginHorizontal: 4,
+    backgroundColor: theme.colors.surface,                  // Surface #FFFFFF from design.json
+    borderRadius: theme.radius.md,                          // Card radius 12px from design.json
+    marginRight: theme.spacing[4],                          // 16px spacing
     width: 200,
-    height: 120,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
-    position: 'relative',
     overflow: 'hidden',
+    ...theme.shadows.card,                                  // Elevation 2 from design.json
   },
   outletImage: {
     width: '100%',
-    height: '100%',
+    height: 120,
   },
   outletOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    padding: 12,
+    padding: theme.spacing[4],                              // 16px padding from design.json
   },
   outletName: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
-    marginBottom: 2,
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontWeight: theme.typography.fontWeight.semibold,       // 600 weight for emphasis
+    lineHeight: theme.typography.lineHeight.body,           // 24px line height from design.json
+    color: theme.colors.textPrimary,                        // Text primary #2D2D2D
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    marginBottom: theme.spacing[1],                          // 4px spacing
   },
   outletAddress: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    opacity: 0.9,
+    fontSize: theme.typography.fontSize.caption,            // 14px caption from design.json
+    fontWeight: theme.typography.fontWeight.normal,         // 400 weight from design.json
+    lineHeight: theme.typography.lineHeight.caption,        // 20px line height from design.json
+    color: theme.colors.textSecondary,                      // Text secondary #7A7A7A
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
   },
   quickActionsContainer: {
-    padding: 20,
-    backgroundColor: '#F9FAFB',
-    marginTop: 10,
+    backgroundColor: theme.colors.surface,                  // Surface #FFFFFF from design.json
+    margin: theme.grid.margin,                              // 16px margin from design.json
+    borderRadius: theme.radius.md,                          // Card radius 12px from design.json
+    padding: theme.spacing[4],                              // 16px padding from design.json
+    ...theme.shadows.card,                                  // Elevation 2 from design.json
   },
   quickActionsTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 16,
+    fontSize: theme.typography.fontSize.headingSm,          // 20px heading sm from design.json
+    fontWeight: theme.typography.fontWeight.semibold,       // 600 weight from design.json
+    lineHeight: theme.typography.lineHeight.headingSm,      // 28px line height from design.json
+    color: theme.colors.textPrimary,                        // Text primary #2D2D2D
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    textTransform: 'uppercase',                             // Uppercase from design.json
+    marginBottom: theme.spacing.withinSection,              // 16px within section spacing
   },
   actionsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   actionButton: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: theme.colors.backgroundShades.secondary, // Light gray background
+    borderRadius: theme.radius.button,                      // Button radius 24px from design.json
+    padding: theme.spacing[4],                              // 16px padding
     alignItems: 'center',
-    marginHorizontal: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
+    flex: 1,
+    marginHorizontal: theme.spacing[1],                     // 4px margin between buttons
+    minHeight: theme.components.button.height.base,         // 44px min tap target from design.json
+    justifyContent: 'center',
   },
   actionIcon: {
     fontSize: 24,
-    marginBottom: 8,
+    marginBottom: theme.spacing[1],                         // 4px spacing
   },
   actionText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#374151',
+    fontSize: theme.typography.fontSize.caption,            // 14px caption from design.json
+    fontWeight: theme.typography.fontWeight.semibold,       // 600 weight for emphasis
+    lineHeight: theme.typography.lineHeight.caption,        // 20px line height from design.json
+    color: theme.colors.textPrimary,                        // Text primary #2D2D2D
+    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    textAlign: 'center',
   },
 });

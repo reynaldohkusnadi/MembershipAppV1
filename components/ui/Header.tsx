@@ -41,7 +41,7 @@ export function Header({
               <IconSymbol 
                 name="chevron.right" 
                 size={16} 
-                color={theme.colors.brand.gold} 
+                color={theme.colors.primary}
               />
             </View>
           </View>
@@ -57,39 +57,34 @@ export function Header({
               <IconSymbol 
                 name="dollarsign.circle.fill" 
                 size={20} 
-                color={theme.colors.brand.gold} 
+                color={theme.colors.primary}
               />
             </View>
           </View>
         )}
-        
-        <View style={styles.actions}>
-          {showNotification && (
-            <TouchableOpacity 
-              style={styles.actionButton} 
-              onPress={onNotificationPress}
-            >
-              <IconSymbol 
-                name="bell" 
-                size={24} 
-                color={theme.colors.text.header} 
-              />
-              <View style={styles.notificationBadge} />
-            </TouchableOpacity>
-          )}
-          {showSearch && (
-            <TouchableOpacity 
-              style={styles.actionButton} 
-              onPress={onSearchPress}
-            >
-              <IconSymbol 
-                name="magnifyingglass" 
-                size={24} 
-                color={theme.colors.text.header} 
-              />
-            </TouchableOpacity>
-          )}
-        </View>
+
+        {(showNotification || showSearch) && (
+          <View style={styles.actions}>
+            {showSearch && (
+              <TouchableOpacity onPress={onSearchPress}>
+                <IconSymbol 
+                  name="magnifyingglass" 
+                  size={theme.components.tab.iconSize} 
+                  color={theme.colors.textSecondary}
+                />
+              </TouchableOpacity>
+            )}
+            {showNotification && (
+              <TouchableOpacity onPress={onNotificationPress}>
+                <IconSymbol 
+                  name="bell" 
+                  size={theme.components.tab.iconSize} 
+                  color={theme.colors.textSecondary}
+                />
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -97,88 +92,87 @@ export function Header({
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: theme.colors.header.background,
+    backgroundColor: theme.colors.header.background,      // Header background #2D2D2D from design.json
+    minHeight: theme.components.header.height,            // 64px header height from design.json
   },
   content: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: theme.spacing[5],
-    paddingVertical: theme.spacing[4],
-    minHeight: 60,
+    paddingHorizontal: theme.components.header.paddingHorizontal, // 16px from design.json
+    paddingVertical: theme.spacing[3],                    // 12px vertical padding
   },
   userSection: {
     flex: 1,
   },
   userName: {
-    fontSize: theme.typography.fontSize.lg,
-    fontWeight: '600' as any,
-    color: theme.colors.text.header,
-    marginBottom: theme.spacing[1],
+    fontSize: theme.typography.fontSize.headingSm,       // 20px heading sm from design.json
+    fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
+    lineHeight: theme.typography.lineHeight.headingSm,   // 28px line height from design.json
+    color: theme.colors.header.text,                     // White header text
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    textTransform: 'uppercase',                          // Uppercase from design.json
+    marginBottom: theme.spacing[1],                       // 4px spacing
   },
   pointsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   pointsText: {
-    fontSize: theme.typography.fontSize.base,
-    color: theme.colors.brand.gold,
-    marginRight: theme.spacing[2],
+    fontSize: theme.typography.fontSize.caption,         // 14px caption from design.json
+    fontWeight: theme.typography.fontWeight.normal,      // 400 weight from design.json
+    lineHeight: theme.typography.lineHeight.caption,     // 20px line height from design.json
+    color: theme.colors.header.text,                     // White header text
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    marginRight: theme.spacing[2],                        // 8px spacing
   },
   tierBadge: {
-    fontSize: theme.typography.fontSize.xs,
-    color: theme.colors.brand.bronze,
-    backgroundColor: theme.colors.background.secondary,
-    paddingHorizontal: theme.spacing[2],
-    paddingVertical: theme.spacing[1],
-    borderRadius: 8,
-    marginRight: theme.spacing[2],
-    textTransform: 'uppercase',
+    fontSize: theme.typography.fontSize.caption,         // 14px caption from design.json
+    fontWeight: theme.typography.fontWeight.semibold,    // 600 weight for emphasis
+    color: theme.colors.primary,                         // Primary #957530
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    marginRight: theme.spacing[1],                        // 4px spacing
   },
   titleSection: {
     flex: 1,
     alignItems: 'center',
   },
   title: {
-    fontSize: theme.typography.fontSize['2xl'],
-    fontWeight: '600' as any,
-    color: theme.colors.text.header,
+    fontSize: theme.typography.fontSize.headingMd,       // 24px heading md from design.json
+    fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
+    lineHeight: theme.typography.lineHeight.headingMd,   // 32px line height from design.json
+    letterSpacing: theme.typography.letterSpacing.headingMd, // 1px letter spacing from design.json
+    color: theme.colors.header.text,                     // White header text
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    textTransform: 'uppercase',                          // Uppercase from design.json
   },
   pointsOnlySection: {
     flex: 1,
     alignItems: 'center',
   },
   pointsLabel: {
-    fontSize: theme.typography.fontSize.sm,
-    color: theme.colors.text.header,
-    marginBottom: theme.spacing[1],
+    fontSize: theme.typography.fontSize.caption,         // 14px caption from design.json
+    fontWeight: theme.typography.fontWeight.normal,      // 400 weight from design.json
+    color: theme.colors.header.text,                     // White header text
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    textTransform: 'uppercase',                          // Uppercase styling
+    marginBottom: theme.spacing[1],                       // 4px spacing
   },
   pointsDisplay: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   pointsValue: {
-    fontSize: theme.typography.fontSize['3xl'],
-    fontWeight: '700' as any,
-    color: theme.colors.text.header,
-    marginRight: theme.spacing[2],
+    fontSize: theme.typography.fontSize.headingSm,       // 20px heading sm from design.json
+    fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
+    lineHeight: theme.typography.lineHeight.headingSm,   // 28px line height from design.json
+    color: theme.colors.primary,                         // Primary #957530
+    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    marginRight: theme.spacing[1],                        // 4px spacing
   },
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  actionButton: {
-    padding: theme.spacing[2],
-    marginLeft: theme.spacing[2],
-    position: 'relative',
-  },
-  notificationBadge: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#FF4444',
+    gap: theme.spacing[4],                                // 16px spacing between actions
   },
 }); 

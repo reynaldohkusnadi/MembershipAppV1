@@ -1,14 +1,15 @@
+import { MemberQRCode } from '@/components/ui';
 import { theme } from '@/constants/Theme';
 import { useAuthStore } from '@/store/auth-store';
 import React, { useState } from 'react';
 import {
-    ActivityIndicator,
-    Alert,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -20,6 +21,7 @@ export function ProfileScreen() {
     getNextTier,
     getPointsToNextTier,
     updateProfile,
+    generateMemberQRCode,
     signOut,
     isLoading,
   } = useAuthStore();
@@ -27,6 +29,7 @@ export function ProfileScreen() {
   const [displayName, setDisplayName] = useState(profile?.display_name || '');
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isGeneratingQR, setIsGeneratingQR] = useState(false);
 
   const currentTier = getCurrentTier();
   const nextTier = getNextTier();
@@ -52,6 +55,22 @@ export function ProfileScreen() {
       Alert.alert('Error', 'Failed to update profile');
     }
     setIsSaving(false);
+  };
+
+  const handleGenerateQR = async () => {
+    setIsGeneratingQR(true);
+    try {
+      const { qr_data, error } = await generateMemberQRCode();
+      
+      if (error) {
+        Alert.alert('Error', 'Failed to generate QR code');
+      } else {
+        Alert.alert('Success', 'QR code generated successfully');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Failed to generate QR code');
+    }
+    setIsGeneratingQR(false);
   };
 
   const handleSignOut = () => {
@@ -377,6 +396,17 @@ export function ProfileScreen() {
           )}
         </View>
 
+        {/* Member QR Code */}
+        <View style={{ margin: 16 }}>
+          <MemberQRCode
+            qrData={profile.qr_code_data}
+            memberName={profile.display_name || 'Member'}
+            memberPoints={profile.points}
+            onRegenerateQR={handleGenerateQR}
+            isLoading={isGeneratingQR}
+          />
+        </View>
+
         {/* Sign Out Button */}
         <View style={{
           backgroundColor: theme.colors.white,
@@ -393,7 +423,7 @@ export function ProfileScreen() {
             <Text style={{
               fontSize: 16,
               fontWeight: '600',
-              color: theme.colors.error,
+              color: theme.colors.statusError,
             }}>
               Sign Out
             </Text>

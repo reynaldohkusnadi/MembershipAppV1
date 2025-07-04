@@ -112,7 +112,7 @@ export function RedemptionModal({ visible, onClose, reward }: RedemptionModalPro
                   <Text style={styles.balanceLabel}>Your Balance:</Text>
                   <Text style={[
                     styles.balanceValue,
-                    { color: canAfford ? theme.colors.success : theme.colors.error }
+                    { color: canAfford ? theme.colors.success : theme.colors.statusError }
                   ]}>
                     {profile?.points || 0} U+Points
                   </Text>
@@ -208,7 +208,7 @@ export function RedemptionModal({ visible, onClose, reward }: RedemptionModalPro
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background.primary,
+    backgroundColor: theme.colors.backgroundShades.primary,
   },
   header: {
     flexDirection: 'row',
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: theme.colors.background.secondary,
+    backgroundColor: theme.colors.backgroundShades.secondary,
     padding: 16,
     borderRadius: 8,
     marginBottom: 12,
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     flex: 1,
-    backgroundColor: theme.colors.background.secondary,
+    backgroundColor: theme.colors.backgroundShades.secondary,
     borderRadius: 12,
     paddingVertical: 16,
     alignItems: 'center',
@@ -324,7 +324,7 @@ const styles = StyleSheet.create({
   redeemText: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.colors.background.primary,
+    color: theme.colors.surface,
   },
   disabledButton: {
     backgroundColor: theme.colors.gray[300],
@@ -372,7 +372,7 @@ const styles = StyleSheet.create({
   qrPlaceholder: {
     width: 200,
     height: 200,
-    backgroundColor: theme.colors.background.secondary,
+    backgroundColor: theme.colors.backgroundShades.secondary,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
@@ -412,6 +412,6 @@ const styles = StyleSheet.create({
   doneText: {
     fontSize: 16,
     fontWeight: '600',
-    color: theme.colors.background.primary,
+    color: theme.colors.surface,
   },
 }); 

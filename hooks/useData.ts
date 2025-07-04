@@ -315,4 +315,26 @@ export function useAwardPoints() {
       useAuthStore.getState().refreshProfile();
     },
   });
+}
+
+// QR Code validation hook for POS systems
+export function useValidateMemberQR() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (qrToken: string) => {
+      const { data, error } = await supabase.rpc('fn_validate_member_qr_token', {
+        p_qr_token: qrToken
+      });
+
+      if (error) throw error;
+      
+      // Return the first (and should be only) result
+      return data?.[0] || { is_valid: false };
+    },
+    onSuccess: () => {
+      // Invalidate related queries on successful validation
+      queryClient.invalidateQueries({ queryKey: ['member-validation'] });
+    },
+  });
 } 

@@ -39,6 +39,9 @@ export interface Database {
           tier_id: number;
           points: number;
           created_at: string;
+          member_qr_token: string | null;
+          qr_code_data: string | null;
+          qr_code_updated_at: string | null;
         };
         Insert: {
           id: string;
@@ -46,12 +49,18 @@ export interface Database {
           avatar_url?: string | null;
           tier_id?: number;
           points?: number;
+          member_qr_token?: string | null;
+          qr_code_data?: string | null;
+          qr_code_updated_at?: string | null;
         };
         Update: {
           display_name?: string | null;
           avatar_url?: string | null;
           tier_id?: number;
           points?: number;
+          member_qr_token?: string | null;
+          qr_code_data?: string | null;
+          qr_code_updated_at?: string | null;
         };
       };
       tiers: {
@@ -247,6 +256,24 @@ export interface Database {
           p_reward: string;
         };
         Returns: string;
+      };
+      fn_generate_member_qr_token: {
+        Args: {
+          p_user_id: string;
+        };
+        Returns: string;
+      };
+      fn_validate_member_qr_token: {
+        Args: {
+          p_qr_token: string;
+        };
+        Returns: {
+          member_id: string | null;
+          display_name: string | null;
+          points: number | null;
+          tier_name: string | null;
+          is_valid: boolean;
+        }[];
       };
     };
   };

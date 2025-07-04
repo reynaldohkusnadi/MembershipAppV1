@@ -1,8 +1,17 @@
 import { Colors } from './Colors';
 
-// Premium loyalty app color palette based on screenshots
+// Design system based on design.json specifications
 export const theme = {
   colors: {
+    // Base colors from design.json
+    primary: '#957530',
+    primaryVariant: '#BFA770',
+    surface: '#FFFFFF',
+    textPrimary: '#2D2D2D',
+    textSecondary: '#7A7A7A',
+    statusError: '#FF3B30',
+    borderDefault: '#E0E0E0',
+    
     // Base colors
     white: '#FFFFFF',
     black: '#000000',
@@ -21,55 +30,53 @@ export const theme = {
       900: '#111827',
     },
     
-    // Brand colors (golden/bronze theme)
+    // Brand colors (from design.json)
     brand: {
-      gold: '#D4AF37',        // Primary golden color
-      lightGold: '#F4E4BC',   // Light golden background
-      darkGold: '#B8941F',    // Darker golden accent
-      bronze: '#CD7F32',      // Bronze accent
+      gold: '#957530',        // Primary from design.json
+      lightGold: '#BFA770',   // Primary variant from design.json
+      darkGold: '#7A5A00',    // Darker variant
+      bronze: '#8B6914',      // Bronze accent
     },
     
-    // Header colors (dark theme)
+    // Header colors (from design.json navigation specs)
     header: {
-      background: '#2B2B2B',  // Dark header background
+      background: '#2D2D2D',  // Dark header background
       text: '#FFFFFF',        // White text on dark header
-      accent: '#D4AF37',      // Golden accents
+      accent: '#957530',      // Primary golden accents
     },
     
-    // Semantic colors
-    primary: '#D4AF37',       // Golden primary
-    secondary: '#2B2B2B',     // Dark secondary
-    accent: '#CD7F32',        // Bronze accent
+    // Secondary and accent colors
+    secondary: '#2D2D2D',     // Dark secondary
+    accent: '#BFA770',        // Primary variant accent
     
     // Status colors
     success: '#10B981',
-    error: '#EF4444',
     warning: '#F59E0B',
     info: '#3B82F6',
     
-    // Background variations
-    background: {
-      primary: '#FFFFFF',     // Main white background
+    // Background variations (design.json specs)
+    backgroundShades: {
+      primary: '#F0F0EC',     // Background from design.json
       secondary: '#F9FAFB',   // Light gray background
-      card: '#FFFFFF',        // Card background
-      header: '#2B2B2B',      // Dark header
+      card: '#FFFFFF',        // Surface from design.json
+      header: '#2D2D2D',      // Dark header
       section: '#F8F9FA',     // Section backgrounds
     },
     
-    // Text colors
+    // Text colors (design.json specs)
     text: {
-      primary: '#111827',     // Main text
-      secondary: '#6B7280',   // Secondary text
+      primary: '#2D2D2D',     // Text primary from design.json
+      secondary: '#7A7A7A',   // Text secondary from design.json
       tertiary: '#9CA3AF',    // Tertiary text
       inverse: '#FFFFFF',     // White text (on dark backgrounds)
       header: '#FFFFFF',      // Header text
-      accent: '#D4AF37',      // Golden accent text
+      accent: '#957530',      // Primary accent text
       muted: '#8B8B8B',       // Muted text
     },
     
-    // Border colors
+    // Border colors (design.json specs)
     border: {
-      light: '#E5E7EB',
+      light: '#E0E0E0',       // Border from design.json
       medium: '#D1D5DB',
       dark: '#9CA3AF',
       card: '#F0F0F0',
@@ -77,27 +84,37 @@ export const theme = {
     
     // Points and tier colors
     points: {
-      text: '#D4AF37',        // Golden points color
-      background: '#F4E4BC',  // Light golden background
+      text: '#957530',        // Primary golden points color
+      background: '#BFA770',  // Primary variant background
     },
     
-    // Tab navigation
+    // Tab navigation (design.json specs)
     tab: {
-      active: '#D4AF37',      // Golden active state
-      inactive: '#9CA3AF',    // Gray inactive state
-      background: '#FFFFFF',  // White tab background
+      active: '#957530',      // Primary active state
+      inactive: '#7A7A7A',    // Text secondary inactive state
+      background: '#FFFFFF',  // Surface tab background
     },
   },
   
-  // Typography scale
+  // Typography scale (design.json specs)
   typography: {
     fontFamily: {
-      regular: 'System',      // Using system font for now
-      medium: 'System',
-      semibold: 'System',
-      bold: 'System',
+      primary: 'Inter',       // Inter from design.json
+      secondary: 'Inter',     // Inter from design.json
+      regular: 'Inter',
+      medium: 'Inter',
+      semibold: 'Inter',
+      bold: 'Inter',
     },
     fontSize: {
+      // Design.json typography scale
+      caption: 14,            // Caption from design.json
+      body: 16,               // Body from design.json
+      headingSm: 20,          // Heading sm from design.json
+      headingMd: 24,          // Heading md from design.json
+      displayLg: 32,          // Display lg from design.json
+      
+      // Additional sizes for compatibility
       xs: 12,
       sm: 14,
       base: 16,
@@ -109,6 +126,14 @@ export const theme = {
       '5xl': 36,
     },
     lineHeight: {
+      // Design.json line heights
+      caption: 20,            // Caption line height
+      body: 24,               // Body line height
+      headingSm: 28,          // Heading sm line height
+      headingMd: 32,          // Heading md line height
+      displayLg: 40,          // Display lg line height
+      
+      // Additional line heights
       xs: 16,
       sm: 20,
       base: 24,
@@ -120,42 +145,50 @@ export const theme = {
       '5xl': 44,
     },
     fontWeight: {
-      normal: '400',
+      normal: '400',          // Body weight from design.json
       medium: '500',
-      semibold: '600',
-      bold: '700',
+      semibold: '600',        // Heading weight from design.json
+      bold: '700',            // Display weight from design.json
+    },
+    letterSpacing: {
+      normal: 0,
+      headingMd: 1,           // Letter spacing for heading md
     },
   },
   
-  // Spacing scale
+  // Spacing scale (design.json specs: [4, 8, 16, 24, 32])
   spacing: {
     0: 0,
-    1: 4,
-    2: 8,
+    1: 4,                     // From design.json scale
+    2: 8,                     // From design.json scale
     3: 12,
-    4: 16,
+    4: 16,                    // From design.json scale
     5: 20,
-    6: 24,
-    8: 32,
+    6: 24,                    // From design.json scale
+    8: 32,                    // From design.json scale
     10: 40,
     12: 48,
     16: 64,
     20: 80,
     24: 96,
+    // Design.json layout spacing
+    withinSection: 16,        // Within section spacing
+    betweenSections: 32,      // Between sections spacing
   },
   
-  // Border radius
+  // Border radius (design.json specs)
   radius: {
     none: 0,
     sm: 4,
     base: 8,
-    md: 12,
+    md: 12,                   // Card radius from design.json
     lg: 16,
     xl: 20,
+    button: 24,               // Button radius from design.json
     full: 9999,
   },
   
-  // Shadows (for cards and elevation)
+  // Shadows with elevation 2 (design.json specs)
   shadows: {
     sm: {
       shadowColor: '#000000',
@@ -169,7 +202,7 @@ export const theme = {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 4,
-      elevation: 2,
+      elevation: 2,           // Elevation from design.json
     },
     lg: {
       shadowColor: '#000000',
@@ -183,34 +216,53 @@ export const theme = {
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.08,
       shadowRadius: 6,
-      elevation: 3,
+      elevation: 2,           // Updated to design.json specs
     },
   },
   
-  // Component sizes
+  // Component sizes (design.json layout structure)
   components: {
     header: {
-      height: 100,
-      paddingHorizontal: 20,
-      paddingTop: 50,
+      height: 64,             // Top bar height from design.json
+      paddingHorizontal: 16,  // Margin from design.json
+      paddingTop: 44,         // Safe area consideration
     },
     card: {
-      borderRadius: 12,
-      padding: 16,
-      margin: 8,
+      borderRadius: 12,       // Card radius from design.json
+      padding: 16,            // From design.json spacing scale
+      margin: 8,              // Gutter from design.json
     },
     button: {
       height: {
         sm: 32,
-        base: 44,
+        base: 44,             // Min tap target from design.json
         lg: 52,
       },
-      borderRadius: 8,
+      borderRadius: 24,       // Button radius from design.json
     },
     tab: {
-      height: 60,
+      height: 88,             // Bottom nav height from design.json
       iconSize: 24,
+      activeBadge: {
+        diameter: 72,         // Active indicator diameter
+      },
     },
+  },
+  
+  // Iconography (design.json specs)
+  iconography: {
+    style: 'stroke',          // Stroke style from design.json
+    strokeWidth: 1.5,         // Stroke width from design.json
+    activeTint: '#957530',    // Primary color for active
+    inactiveTint: '#7A7A7A',  // Text secondary for inactive
+  },
+  
+  // Grid system (design.json layout)
+  grid: {
+    columns: 12,              // Columns from design.json
+    gutter: 8,                // Gutter from design.json
+    margin: 16,               // Margin from design.json
+    baselineGrid: 4,          // Baseline grid from design.json
   },
 } as const;
 
@@ -228,7 +280,7 @@ export const getHeaderStyle = () => ({
 });
 
 export const getCardStyle = () => ({
-  backgroundColor: theme.colors.background.card,
+  backgroundColor: theme.colors.backgroundShades.card,
   borderRadius: theme.components.card.borderRadius,
   padding: theme.components.card.padding,
   ...theme.shadows.card,

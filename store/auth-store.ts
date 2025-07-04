@@ -9,6 +9,9 @@ export interface UserProfile {
   tier_id: number;
   points: number;
   created_at: string;
+  member_qr_token: string | null;
+  qr_code_data: string | null;
+  qr_code_updated_at: string | null;
   tier?: {
     id: number;
     name: string;
@@ -41,6 +44,7 @@ interface AuthState {
   updateProfile: (updates: Partial<UserProfile>) => Promise<{ error?: any }>;
   refreshProfile: () => Promise<void>;
   createUserProfile: (user: User, displayName?: string) => Promise<UserProfile | null>;
+  generateMemberQRCode: () => Promise<{ qr_data?: string; error?: any }>;
   loadTiers: () => Promise<void>;
   getCurrentTier: () => Tier | null;
   getNextTier: () => Tier | null;
@@ -354,6 +358,31 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     
     if (!profile || !nextTier) return 0;
     return Math.max(0, nextTier.min_points - profile.points);
+  },
+
+  // Generate member QR code
+  generateMemberQRCode: async () => {
+    try {
+      const { user } = get();
+      if (!user?.id) return { error: 'No user found' };
+
+      const { data, error } = await supabase.rpc('fn_generate_member_qr_token', {
+        p_user_id: user.id
+      });
+
+      if (error) {
+        console.error('QR generation error:', error);
+        return { error };
+      }
+
+      // Refresh profile to get updated QR data
+      await get().refreshProfile();
+      
+      return { qr_data: data };
+    } catch (error) {
+      console.error('Error generating QR code:', error);
+      return { error };
+    }
   },
 
   // Clear error state

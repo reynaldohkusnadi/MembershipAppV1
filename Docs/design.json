@@ -1,0 +1,143 @@
+{
+    "meta": {
+      "version": "1.0",
+      "generated": "2025-07-04T18:00:00+07:00",
+      "description": "Design system extracted from loyalty app screenshots for Cursor replication."
+    },
+    "design_style": {
+      "colors": {
+        "primary": "#957530",
+        "primary_variant": "#BFA770",
+        "background": "#F0F0EC",
+        "surface": "#FFFFFF",
+        "text_primary": "#2D2D2D",
+        "text_secondary": "#7A7A7A",
+        "error": "#FF3B30",
+        "border": "#E0E0E0"
+      },
+      "typography": {
+        "font_family": {
+          "primary": "Inter",
+          "secondary": "Inter"
+        },
+        "scale": {
+          "display_lg": { "size": 32, "weight": 700, "line_height": 40, "case": "sentence" },
+          "heading_md": { "size": 24, "weight": 600, "line_height": 32, "case": "uppercase", "letter_spacing": 1 },
+          "heading_sm": { "size": 20, "weight": 600, "line_height": 28, "case": "uppercase" },
+          "body": { "size": 16, "weight": 400, "line_height": 24 },
+          "caption": { "size": 14, "weight": 400, "line_height": 20 }
+        }
+      },
+      "iconography": {
+        "style": "stroke",
+        "stroke_width": 1.5,
+        "active_tint": "#957530",
+        "inactive_tint": "#7A7A7A"
+      },
+      "shape": {
+        "card_radius": 12,
+        "button_radius": 24,
+        "elevation": 2,
+        "texture": "subtle_paper"
+      }
+    },
+    "layout_structure": {
+      "grid": {
+        "columns": 12,
+        "gutter": 8,
+        "margin": 16,
+        "baseline_grid": 4
+      },
+      "navigation": {
+        "top_bar": {
+          "height": 64,
+          "background": "#2D2D2D",
+          "title_alignment": "center",
+          "title_style": "heading_sm"
+        },
+        "bottom_nav": {
+          "height": 88,
+          "items": 5,
+          "active_indicator": {
+            "type": "floating_badge",
+            "diameter": 72,
+            "background": "#957530"
+          }
+        }
+      },
+      "sections": {
+        "vertical_spacing": { "between_sections": 32, "within_section": 16 },
+        "alignment": "left",
+        "header_style": "heading_md"
+      }
+    },
+    "key_elements": {
+      "section_heading": {
+        "component": "Text",
+        "props": {
+          "style": "heading_md",
+          "color": "text_primary",
+          "margin_bottom": 16
+        }
+      },
+      "card_square": {
+        "component": "Card",
+        "props": {
+          "shape": "rounded",
+          "corner_radius": 12,
+          "padding": 16,
+          "background": "surface",
+          "shadow": "elevation"
+        },
+        "children": [
+          { "component": "Image", "props": { "aspect_ratio": "1:1", "content_mode": "cover" } },
+          { "component": "Text", "props": { "style": "body", "weight": 600 } },
+          { "component": "Text", "props": { "style": "caption", "color": "text_secondary" } }
+        ]
+      },
+      "filter_dropdown": {
+        "component": "Dropdown",
+        "props": {
+          "border_radius": 24,
+          "padding_horizontal": 24,
+          "placeholder_style": "body",
+          "icon": "chevron_down"
+        }
+      },
+      "notification_badge": {
+        "component": "Badge",
+        "props": {
+          "shape": "circle",
+          "size": 10,
+          "background": "error"
+        }
+      }
+    },
+    "visual_hierarchy": {
+      "rules": [
+        { "priority": 1, "method": "color", "targets": ["primary", "active_indicator"] },
+        { "priority": 2, "method": "size", "targets": ["display_lg", "heading_md"] },
+        { "priority": 3, "method": "position", "targets": ["floating_badge_center_nav"] }
+      ],
+      "reading_order": "vertical_scroll_top_to_bottom"
+    },
+    "consistency_rules": {
+      "spacing_scale": [4, 8, 16, 24, 32],
+      "uppercase_headings": true,
+      "color_application": {
+        "primary": ["buttons", "links", "active_icons"],
+        "background": ["app_root"],
+        "surface": ["cards", "dropdowns"],
+        "error": ["badges"]
+      },
+      "interaction": {
+        "tap_target_min_size": 44,
+        "hover_effect": "shadow_lift"
+      },
+      "accessibility": {
+        "contrast_ratio_min": 4.5,
+        "hit_area_expand": 8
+      }
+    }
+  }
+  

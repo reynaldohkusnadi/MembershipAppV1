@@ -2,14 +2,14 @@ import { theme } from '@/constants/Theme';
 import { useAuthStore } from '@/store/auth-store';
 import React, { useState } from 'react';
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -117,7 +117,7 @@ export function LoginScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme.colors.background.primary,
+    backgroundColor: theme.colors.backgroundShades.primary,
   },
   keyboardAvoid: {
     flex: 1,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
     padding: theme.spacing[4],
     fontSize: theme.typography.fontSize.base,
     color: theme.colors.text.primary,
-    backgroundColor: theme.colors.background.secondary,
+    backgroundColor: theme.colors.backgroundShades.secondary,
   },
   button: {
     backgroundColor: theme.colors.brand.gold,
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: theme.typography.fontSize.lg,
     fontWeight: '600',
-    color: theme.colors.background.primary,
+    color: theme.colors.surface,
   },
   switchButton: {
     alignItems: 'center',
