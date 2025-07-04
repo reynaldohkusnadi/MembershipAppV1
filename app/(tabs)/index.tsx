@@ -91,15 +91,16 @@ export default function HomeScreen() {
             contentContainerStyle={styles.rewardsContainer}
           >
             {featuredRewards.map((reward) => (
-              <RewardCard
-                key={reward.id}
-                id={reward.id.toString()}
-                title={reward.title}
-                brand="Artisan"
-                pointsCost={reward.cost}
-                imageUrl={reward.image_url || `https://picsum.photos/160/120?random=${reward.id}`}
-                onPress={() => handleRewardPress(reward.id.toString())}
-              />
+              <View key={reward.id} style={styles.rewardCardWrapper}>
+                <RewardCard
+                  id={reward.id.toString()}
+                  title={reward.title}
+                  brand="Artisan"
+                  pointsCost={reward.cost}
+                  imageUrl={reward.image_url || `https://picsum.photos/160/120?random=${reward.id}`}
+                  onPress={() => handleRewardPress(reward.id.toString())}
+                />
+              </View>
             ))}
           </ScrollView>
         )}
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   bannerContainer: {
     margin: theme.grid.margin,                               // 16px margin from design.json
-    borderRadius: theme.radius.md,                           // Card radius 12px from design.json
+    borderRadius: theme.radius.medium,                       // radius_medium 12px from design.json
     overflow: 'hidden',
     height: 200,
     position: 'relative',
@@ -205,12 +206,12 @@ const styles = StyleSheet.create({
     padding: theme.spacing[4],                               // 16px padding from design.json
   },
   bannerTitle: {
-    fontSize: theme.typography.fontSize.headingMd,          // 24px heading md from design.json
-    fontWeight: theme.typography.fontWeight.semibold,       // 600 weight from design.json
-    lineHeight: theme.typography.lineHeight.headingMd,      // 32px line height from design.json
-    letterSpacing: theme.typography.letterSpacing.headingMd, // 1px letter spacing from design.json
+    fontSize: theme.typography.fontSize.headline,           // 24px headline from design.json
+    fontWeight: theme.typography.fontWeight.bold,           // 700 weight from design.json
+    lineHeight: theme.typography.lineHeight.headline,       // 32px line height from design.json
+    letterSpacing: theme.typography.letterSpacing.normal,   // Normal letter spacing from design.json
     color: theme.colors.surface,                            // White text on dark overlay
-    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
     textAlign: 'center',
     textTransform: 'uppercase',                             // Uppercase from design.json
     marginBottom: theme.spacing[2],                          // 8px spacing
@@ -238,7 +239,7 @@ const styles = StyleSheet.create({
   },
   outletCard: {
     backgroundColor: theme.colors.surface,                  // Surface #FFFFFF from design.json
-    borderRadius: theme.radius.md,                          // Card radius 12px from design.json
+    borderRadius: theme.radius.medium,                      // radius_medium 12px from design.json
     marginRight: theme.spacing[4],                          // 16px spacing
     width: 200,
     overflow: 'hidden',
@@ -269,16 +270,16 @@ const styles = StyleSheet.create({
   quickActionsContainer: {
     backgroundColor: theme.colors.surface,                  // Surface #FFFFFF from design.json
     margin: theme.grid.margin,                              // 16px margin from design.json
-    borderRadius: theme.radius.md,                          // Card radius 12px from design.json
+    borderRadius: theme.radius.medium,                      // radius_medium 12px from design.json
     padding: theme.spacing[4],                              // 16px padding from design.json
     ...theme.shadows.card,                                  // Elevation 2 from design.json
   },
   quickActionsTitle: {
-    fontSize: theme.typography.fontSize.headingSm,          // 20px heading sm from design.json
+    fontSize: theme.typography.fontSize.title,              // 20px title from design.json
     fontWeight: theme.typography.fontWeight.semibold,       // 600 weight from design.json
-    lineHeight: theme.typography.lineHeight.headingSm,      // 28px line height from design.json
+    lineHeight: theme.typography.lineHeight.title,          // 28px line height from design.json
     color: theme.colors.textPrimary,                        // Text primary #2D2D2D
-    fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
     textTransform: 'uppercase',                             // Uppercase from design.json
     marginBottom: theme.spacing.withinSection,              // 16px within section spacing
   },
@@ -288,7 +289,7 @@ const styles = StyleSheet.create({
   },
   actionButton: {
     backgroundColor: theme.colors.backgroundShades.secondary, // Light gray background
-    borderRadius: theme.radius.button,                      // Button radius 24px from design.json
+    borderRadius: theme.radius.large,                       // radius_large 24px from design.json
     padding: theme.spacing[4],                              // 16px padding
     alignItems: 'center',
     flex: 1,
@@ -307,5 +308,9 @@ const styles = StyleSheet.create({
     color: theme.colors.textPrimary,                        // Text primary #2D2D2D
     fontFamily: theme.typography.fontFamily.primary,        // Inter from design.json
     textAlign: 'center',
+  },
+  rewardCardWrapper: {
+    marginRight: theme.spacing[4],                          // 16px spacing
+    width: 160,                                             // Fixed width for horizontal scroll
   },
 });

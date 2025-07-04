@@ -1,4 +1,5 @@
 import { Header } from '@/components/ui/Header';
+import { theme } from '@/constants/Theme';
 import { usePromotions } from '@/hooks/useData';
 import React from 'react';
 import {
@@ -69,7 +70,7 @@ export default function NewsScreen() {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {isLoading ? (
           <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color="#D4AF37" />
+            <ActivityIndicator size="large" color={theme.colors.primary} />
             <Text style={styles.loadingText}>Loading news...</Text>
           </View>
         ) : (
@@ -145,43 +146,41 @@ export default function NewsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.backgroundShades.primary,  // Background #F0F0EC from design.json
   },
   content: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.backgroundShades.primary,  // Background #F0F0EC from design.json
   },
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 40,
+    paddingVertical: theme.spacing[10],                      // 40px spacing
   },
   loadingText: {
-    marginTop: 16,
-    color: '#6B7280',
-    fontSize: 16,
+    marginTop: theme.spacing[4],                            // 16px spacing
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
   },
   section: {
-    marginBottom: 24,
+    marginBottom: theme.spacing[6],                          // 24px spacing
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    fontSize: theme.typography.fontSize.lg,                  // 18px
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    paddingHorizontal: theme.spacing[5],                     // 20px spacing
+    paddingVertical: theme.spacing[4],                       // 16px spacing
   },
   promotionCard: {
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    backgroundColor: theme.colors.surface,                   // Surface white from design.json
+    marginHorizontal: theme.spacing[5],                      // 20px spacing
+    marginBottom: theme.spacing[4],                          // 16px spacing
+    borderRadius: theme.radius.medium,                       // radius_medium 12px from design.json
+    ...theme.shadows.card,                                   // Elevation 2 from design.json
     overflow: 'hidden',
   },
   promotionImage: {
@@ -189,41 +188,41 @@ const styles = StyleSheet.create({
     height: 160,
   },
   promotionContent: {
-    padding: 16,
+    padding: theme.spacing[4],                               // 16px padding from design.json
   },
   promotionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 4,
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                          // 4px spacing
   },
   promotionBrand: {
-    fontSize: 12,
-    color: '#D4AF37',
-    fontWeight: '500',
-    marginBottom: 4,
+    fontSize: theme.typography.fontSize.xs,                  // 12px
+    color: theme.colors.primary,                            // Primary #957530 from design.json
+    fontWeight: theme.typography.fontWeight.medium,          // 500 weight
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                          // 4px spacing
     textTransform: 'uppercase',
   },
   promotionDate: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginBottom: 8,
+    fontSize: theme.typography.fontSize.xs,                  // 12px
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   promotionDescription: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 20,
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    lineHeight: theme.typography.lineHeight.caption,         // 18px line height from design.json
   },
   newsCard: {
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 20,
-    marginBottom: 16,
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    backgroundColor: theme.colors.surface,                   // Surface white from design.json
+    marginHorizontal: theme.spacing[5],                      // 20px spacing
+    marginBottom: theme.spacing[4],                          // 16px spacing
+    borderRadius: theme.radius.medium,                       // radius_medium 12px from design.json
+    ...theme.shadows.card,                                   // Elevation 2 from design.json
     overflow: 'hidden',
   },
   newsImage: {
@@ -231,38 +230,43 @@ const styles = StyleSheet.create({
     height: 160,
   },
   newsContent: {
-    padding: 16,
+    padding: theme.spacing[4],                               // 16px padding from design.json
   },
   newsTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 4,
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                          // 4px spacing
   },
   newsDate: {
-    fontSize: 12,
-    color: '#6B7280',
-    marginBottom: 8,
+    fontSize: theme.typography.fontSize.xs,                  // 12px
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   newsDescription: {
-    fontSize: 14,
-    color: '#6B7280',
-    lineHeight: 20,
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    lineHeight: theme.typography.lineHeight.caption,         // 18px line height from design.json
   },
   emptyContainer: {
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+    paddingVertical: theme.spacing[10],                      // 40px spacing
+    paddingHorizontal: theme.spacing[5],                     // 20px spacing
     alignItems: 'center',
   },
   emptyText: {
-    color: '#9CA3AF',
-    fontSize: 16,
-    fontWeight: '600',
-    marginBottom: 8,
+    color: theme.colors.textSecondary,                       // Text secondary from design.json
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   emptySubtext: {
-    color: '#9CA3AF',
-    fontSize: 14,
+    color: theme.colors.textSecondary,                       // Text secondary from design.json
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
     textAlign: 'center',
   },
 }); 

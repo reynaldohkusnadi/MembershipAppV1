@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   userName: {
-    fontSize: theme.typography.fontSize.headingSm,       // 20px heading sm from design.json
+    fontSize: theme.typography.fontSize.title,           // 20px title from design.json
     fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
-    lineHeight: theme.typography.lineHeight.headingSm,   // 28px line height from design.json
+    lineHeight: theme.typography.lineHeight.title,       // 28px line height from design.json
     color: theme.colors.header.text,                     // White header text
-    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    fontFamily: theme.typography.fontFamily.primary,     // SF Pro Display from design.json
     textTransform: 'uppercase',                          // Uppercase from design.json
     marginBottom: theme.spacing[1],                       // 4px spacing
   },
@@ -138,12 +138,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: theme.typography.fontSize.headingMd,       // 24px heading md from design.json
-    fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
-    lineHeight: theme.typography.lineHeight.headingMd,   // 32px line height from design.json
-    letterSpacing: theme.typography.letterSpacing.headingMd, // 1px letter spacing from design.json
+    fontSize: theme.typography.fontSize.headline,        // 24px headline from design.json
+    fontWeight: theme.typography.fontWeight.bold,        // 700 weight from design.json
+    lineHeight: theme.typography.lineHeight.headline,    // 32px line height from design.json
+    letterSpacing: theme.typography.letterSpacing.normal, // Normal letter spacing
     color: theme.colors.header.text,                     // White header text
-    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    fontFamily: theme.typography.fontFamily.primary,     // SF Pro Display from design.json
     textTransform: 'uppercase',                          // Uppercase from design.json
   },
   pointsOnlySection: {
@@ -163,11 +163,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   pointsValue: {
-    fontSize: theme.typography.fontSize.headingSm,       // 20px heading sm from design.json
+    fontSize: theme.typography.fontSize.title,           // 20px title from design.json
     fontWeight: theme.typography.fontWeight.semibold,    // 600 weight from design.json
-    lineHeight: theme.typography.lineHeight.headingSm,   // 28px line height from design.json
+    lineHeight: theme.typography.lineHeight.title,       // 28px line height from design.json
     color: theme.colors.primary,                         // Primary #957530
-    fontFamily: theme.typography.fontFamily.primary,     // Inter from design.json
+    fontFamily: theme.typography.fontFamily.primary,     // SF Pro Display from design.json
     marginRight: theme.spacing[1],                        // 4px spacing
   },
   actions: {

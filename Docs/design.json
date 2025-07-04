@@ -1,143 +1,163 @@
 {
-    "meta": {
-      "version": "1.0",
-      "generated": "2025-07-04T18:00:00+07:00",
-      "description": "Design system extracted from loyalty app screenshots for Cursor replication."
+  "meta": {
+    "version": "1.1",
+    "updated": "2025-07-04T18:15:00+07:00",
+    "description": "Design system for Union Loyalty app – revised layout & component composition inspired by Airbnb‑style screens while retaining existing color palette."
+  },
+  "design_style": {
+    "colors": {
+      "primary": "#957530",                         
+      "primary_variant": "#BFA770",                  
+      "background": "#F0F0EC",                      
+      "surface": "#FFFFFF",
+      "text_primary": "#2D2D2D",
+      "text_secondary": "#666666",
+      "error": "#D32F2F",
+      "success": "#388E3C",
+      "info": "#1976D2",
+      "gradient_primary": ["#FF3264", "#FF006E"],   
+      "divider": "rgba(0,0,0,0.12)"
     },
-    "design_style": {
-      "colors": {
-        "primary": "#957530",
-        "primary_variant": "#BFA770",
-        "background": "#F0F0EC",
-        "surface": "#FFFFFF",
-        "text_primary": "#2D2D2D",
-        "text_secondary": "#7A7A7A",
-        "error": "#FF3B30",
-        "border": "#E0E0E0"
-      },
-      "typography": {
-        "font_family": {
-          "primary": "Inter",
-          "secondary": "Inter"
-        },
-        "scale": {
-          "display_lg": { "size": 32, "weight": 700, "line_height": 40, "case": "sentence" },
-          "heading_md": { "size": 24, "weight": 600, "line_height": 32, "case": "uppercase", "letter_spacing": 1 },
-          "heading_sm": { "size": 20, "weight": 600, "line_height": 28, "case": "uppercase" },
-          "body": { "size": 16, "weight": 400, "line_height": 24 },
-          "caption": { "size": 14, "weight": 400, "line_height": 20 }
-        }
-      },
-      "iconography": {
-        "style": "stroke",
-        "stroke_width": 1.5,
-        "active_tint": "#957530",
-        "inactive_tint": "#7A7A7A"
-      },
-      "shape": {
-        "card_radius": 12,
-        "button_radius": 24,
-        "elevation": 2,
-        "texture": "subtle_paper"
+    "typography": {
+      "font_family": "SF Pro Display, Helvetica Neue, Arial, sans‑serif",
+      "scale": {
+        "display_large": {"size": 34, "weight": 700, "letter_spacing": -0.5},
+        "headline": {"size": 24, "weight": 700},
+        "title": {"size": 20, "weight": 600},
+        "body": {"size": 16, "weight": 400},
+        "caption": {"size": 13, "weight": 400, "letter_spacing": 0.1}
       }
     },
-    "layout_structure": {
-      "grid": {
-        "columns": 12,
-        "gutter": 8,
-        "margin": 16,
-        "baseline_grid": 4
-      },
-      "navigation": {
-        "top_bar": {
-          "height": 64,
-          "background": "#2D2D2D",
-          "title_alignment": "center",
-          "title_style": "heading_sm"
-        },
-        "bottom_nav": {
-          "height": 88,
-          "items": 5,
-          "active_indicator": {
-            "type": "floating_badge",
-            "diameter": 72,
-            "background": "#957530"
-          }
-        }
-      },
-      "sections": {
-        "vertical_spacing": { "between_sections": 32, "within_section": 16 },
-        "alignment": "left",
-        "header_style": "heading_md"
+    "shape": {
+      "radius_small": 8,
+      "radius_medium": 12,
+      "radius_large": 24
+    },
+    "iconography": {
+      "size_default": 24,
+      "size_large": 32,
+      "stroke_weight": 2
+    },
+    "spacing": {
+      "xs": 4,
+      "sm": 8,
+      "md": 16,
+      "lg": 24,
+      "xl": 32
+    }
+  },
+  "layout_structure": {
+    "grid": {
+      "columns": 12,
+      "gutter": 8,
+      "margin": 16,
+      "breakpoints": {
+        "mobile": 0,
+        "tablet": 768,
+        "desktop": 1280
       }
     },
-    "key_elements": {
-      "section_heading": {
-        "component": "Text",
-        "props": {
-          "style": "heading_md",
-          "color": "text_primary",
-          "margin_bottom": 16
-        }
-      },
-      "card_square": {
-        "component": "Card",
-        "props": {
-          "shape": "rounded",
-          "corner_radius": 12,
-          "padding": 16,
-          "background": "surface",
-          "shadow": "elevation"
+    "screens": {
+      "home_explore": {
+        "header": "search_bar_compact",            
+        "top_tabs": ["Homes", "Experiences", "Services"],
+        "section_list": "vertical_scroll",
+        "section": {
+          "title": "row",
+          "content": "horizontal_card_carousel"
         },
-        "children": [
-          { "component": "Image", "props": { "aspect_ratio": "1:1", "content_mode": "cover" } },
-          { "component": "Text", "props": { "style": "body", "weight": 600 } },
-          { "component": "Text", "props": { "style": "caption", "color": "text_secondary" } }
-        ]
+        "bottom_nav": "persistent_bottom_nav_bar"
       },
-      "filter_dropdown": {
-        "component": "Dropdown",
-        "props": {
-          "border_radius": 24,
-          "padding_horizontal": 24,
-          "placeholder_style": "body",
-          "icon": "chevron_down"
+      "listing_detail": {
+        "hero_gallery": {
+          "aspect_ratio": "3:2",
+          "overlay_icons": ["back", "share", "bookmark"]
+        },
+        "info_block": [
+          "title",
+          "sub_title_location",
+          "meta_row_guest_bed_bath"
+        ],
+        "badges_row": ["rating_chip", "guest_favorite_chip", "reviews_link"],
+        "rare_find_banner": {
+          "icon": "diamond_outline_pink",
+          "text": "This is a rare find"
+        },
+        "host_card": "horizontal_compact",
+        "sticky_footer": {
+          "price_column": "left",
+          "cta_button": "reserve_button_gradient"
         }
-      },
-      "notification_badge": {
-        "component": "Badge",
-        "props": {
-          "shape": "circle",
-          "size": 10,
-          "background": "error"
-        }
-      }
-    },
-    "visual_hierarchy": {
-      "rules": [
-        { "priority": 1, "method": "color", "targets": ["primary", "active_indicator"] },
-        { "priority": 2, "method": "size", "targets": ["display_lg", "heading_md"] },
-        { "priority": 3, "method": "position", "targets": ["floating_badge_center_nav"] }
-      ],
-      "reading_order": "vertical_scroll_top_to_bottom"
-    },
-    "consistency_rules": {
-      "spacing_scale": [4, 8, 16, 24, 32],
-      "uppercase_headings": true,
-      "color_application": {
-        "primary": ["buttons", "links", "active_icons"],
-        "background": ["app_root"],
-        "surface": ["cards", "dropdowns"],
-        "error": ["badges"]
-      },
-      "interaction": {
-        "tap_target_min_size": 44,
-        "hover_effect": "shadow_lift"
-      },
-      "accessibility": {
-        "contrast_ratio_min": 4.5,
-        "hit_area_expand": 8
       }
     }
+  },
+  "key_elements": {
+    "components": {
+      "search_bar_compact": {
+        "height": 48,
+        "shape": "radius_large",
+        "icon_left": "search",
+        "placeholder": "Start your search"
+      },
+      "horizontal_card_carousel": {
+        "card_width": 160,
+        "card_height": 200,
+        "card_shape": "radius_medium",
+        "image_ratio": "1:1",
+        "supports_badge": true
+      },
+      "rating_chip": {
+        "icon": "star_filled",
+        "color": "primary",
+        "text_style": "caption"
+      },
+      "guest_favorite_chip": {
+        "icon": "laurel",
+        "text_style": "caption"
+      },
+      "bottom_nav_bar": {
+        "item_count": 5,
+        "active_color": "primary",
+        "inactive_color": "text_secondary",
+        "icon_label_gap": 4
+      },
+      "reserve_button_gradient": {
+        "height": 48,
+        "shape": "radius_large",
+        "gradient": "gradient_primary",
+        "text_style": "title",
+        "elevation": 2
+      }
+    },
+    "component_relationships": {
+      "card_home_listing_small": ["rating_chip", "favorite_icon"],
+      "bottom_nav_bar": ["home_explore", "wishlist", "trips", "messages", "profile"]
+    }
+  },
+  "visual_hierarchy": {
+    "emphasis": {
+      "primary_actions": ["reserve_button_gradient"],
+      "secondary_actions": ["favorite_icon", "share_icon"]
+    },
+    "typographic_scale": ["display_large", "headline", "title", "body", "caption"],
+    "contrast_rules": {
+      "minimum_ratio": 4.5,
+      "primary_on_background": "primary vs background",
+      "text_primary_on_surface": "text_primary vs surface"
+    }
+  },
+  "consistency_rules": {
+    "spacing_scale": "4‑pt base spacing – multiples only",
+    "component_naming": "kebab‑case for file names, snake_case for tokens",
+    "accessibility": {
+      "touch_target_min": 44,
+      "focus_visible": true,
+      "alt_text_required": true
+    },
+    "motion": {
+      "duration_short": 150,
+      "duration_medium": 300,
+      "curve": "easeInOut"
+    }
   }
-  
+}

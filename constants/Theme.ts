@@ -99,20 +99,20 @@ export const theme = {
   // Typography scale (design.json specs)
   typography: {
     fontFamily: {
-      primary: 'Inter',       // Inter from design.json
-      secondary: 'Inter',     // Inter from design.json
-      regular: 'Inter',
-      medium: 'Inter',
-      semibold: 'Inter',
-      bold: 'Inter',
+      primary: 'SF Pro Display',       // SF Pro Display from design.json
+      secondary: 'SF Pro Display',     // SF Pro Display from design.json
+      regular: 'SF Pro Display',
+      medium: 'SF Pro Display',
+      semibold: 'SF Pro Display',
+      bold: 'SF Pro Display',
     },
     fontSize: {
-      // Design.json typography scale
-      caption: 14,            // Caption from design.json
+      // Design.json typography scale (exact specs)
+      caption: 13,            // Caption from design.json
       body: 16,               // Body from design.json
-      headingSm: 20,          // Heading sm from design.json
-      headingMd: 24,          // Heading md from design.json
-      displayLg: 32,          // Display lg from design.json
+      title: 20,              // Title from design.json
+      headline: 24,           // Headline from design.json
+      displayLarge: 34,       // Display large from design.json
       
       // Additional sizes for compatibility
       xs: 12,
@@ -126,12 +126,12 @@ export const theme = {
       '5xl': 36,
     },
     lineHeight: {
-      // Design.json line heights
-      caption: 20,            // Caption line height
+      // Design.json line heights (calculated from specs)
+      caption: 18,            // Caption line height
       body: 24,               // Body line height
-      headingSm: 28,          // Heading sm line height
-      headingMd: 32,          // Heading md line height
-      displayLg: 40,          // Display lg line height
+      title: 28,              // Title line height  
+      headline: 32,           // Headline line height
+      displayLarge: 40,       // Display large line height
       
       // Additional line heights
       xs: 16,
@@ -152,7 +152,8 @@ export const theme = {
     },
     letterSpacing: {
       normal: 0,
-      headingMd: 1,           // Letter spacing for heading md
+      displayLarge: -0.5,     // Display large letter spacing from design.json
+      caption: 0.1,           // Caption letter spacing from design.json
     },
   },
   
@@ -179,12 +180,16 @@ export const theme = {
   // Border radius (design.json specs)
   radius: {
     none: 0,
+    small: 8,                 // radius_small from design.json
+    medium: 12,               // radius_medium from design.json
+    large: 24,                // radius_large from design.json
+    // Legacy compatibility
     sm: 4,
     base: 8,
-    md: 12,                   // Card radius from design.json
+    md: 12,
     lg: 16,
     xl: 20,
-    button: 24,               // Button radius from design.json
+    button: 24,
     full: 9999,
   },
   
@@ -228,9 +233,11 @@ export const theme = {
       paddingTop: 44,         // Safe area consideration
     },
     card: {
-      borderRadius: 12,       // Card radius from design.json
+      borderRadius: 12,       // radius_medium from design.json
       padding: 16,            // From design.json spacing scale
       margin: 8,              // Gutter from design.json
+      width: 160,             // horizontal_card_carousel.card_width from design.json
+      height: 200,            // horizontal_card_carousel.card_height from design.json
     },
     button: {
       height: {
@@ -242,17 +249,22 @@ export const theme = {
     },
     tab: {
       height: 88,             // Bottom nav height from design.json
-      iconSize: 24,
+      iconSize: 24,           // iconography.size_default from design.json
       activeBadge: {
         diameter: 72,         // Active indicator diameter
       },
+    },
+    searchBar: {
+      height: 48,             // search_bar_compact.height from design.json
+      borderRadius: 24,       // search_bar_compact.shape radius_large from design.json
     },
   },
   
   // Iconography (design.json specs)
   iconography: {
-    style: 'stroke',          // Stroke style from design.json
-    strokeWidth: 1.5,         // Stroke width from design.json
+    sizeDefault: 24,          // size_default from design.json
+    sizeLarge: 32,            // size_large from design.json
+    strokeWeight: 2,          // stroke_weight from design.json
     activeTint: '#957530',    // Primary color for active
     inactiveTint: '#7A7A7A',  // Text secondary for inactive
   },

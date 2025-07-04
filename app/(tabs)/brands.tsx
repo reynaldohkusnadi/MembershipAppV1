@@ -1,6 +1,7 @@
 import { LocationSelectionScreen } from '@/components/LocationSelectionScreen';
 import { RestaurantDetailScreen } from '@/components/RestaurantDetailScreen';
 import { Header } from '@/components/ui/Header';
+import { theme } from '@/constants/Theme';
 import { useBrands, useOutlets } from '@/hooks/useData';
 import React from 'react';
 import {
@@ -187,7 +188,7 @@ export default function RestaurantsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.backgroundShades.primary,  // Background #F0F0EC from design.json
   },
   content: {
     flex: 1,
@@ -199,14 +200,18 @@ const styles = StyleSheet.create({
     paddingVertical: 40,
   },
   loadingText: {
-    marginTop: 16,
-    color: '#6B7280',
-    fontSize: 16,
+    marginTop: theme.spacing[4],                            // 16px spacing from design.json
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontSize: theme.typography.fontSize.body,               // 16px body from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
   },
   brandCard: {
-    height: 200,
-    marginBottom: 2,
+    height: theme.components.card.height,                   // 200px from design.json horizontal_card_carousel
+    marginBottom: theme.spacing[1],                         // 4px spacing
     position: 'relative',
+    borderRadius: theme.radius.medium,                      // radius_medium 12px from design.json
+    overflow: 'hidden',
+    ...theme.shadows.card,                                  // Elevation 2 from design.json
   },
   brandImage: {
     width: '100%',
@@ -217,54 +222,64 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    padding: 20,
+    backgroundColor: 'rgba(45, 45, 45, 0.7)',               // Using header background with opacity
+    padding: theme.spacing[5],                              // 20px spacing
   },
   brandName: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: '700',
-    marginBottom: 4,
+    color: theme.colors.surface,                            // White text from design.json
+    fontSize: theme.typography.fontSize.headline,           // 24px headline from design.json
+    fontWeight: theme.typography.fontWeight.bold,           // 700 weight from design.json
+    lineHeight: theme.typography.lineHeight.headline,       // 32px line height from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                         // 4px spacing
   },
   outletCount: {
-    color: '#D4AF37',
-    fontSize: 14,
-    fontWeight: '500',
-    marginBottom: 4,
+    color: theme.colors.primary,                            // Primary #957530 from design.json
+    fontSize: theme.typography.fontSize.caption,            // 13px caption from design.json
+    fontWeight: theme.typography.fontWeight.medium,         // 500 weight
+    letterSpacing: theme.typography.letterSpacing.caption,  // 0.1px letter spacing from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                         // 4px spacing
   },
   brandDescription: {
-    color: '#FFFFFF',
-    fontSize: 12,
+    color: theme.colors.surface,                            // White text from design.json
+    fontSize: theme.typography.fontSize.caption,            // 13px caption from design.json
+    fontWeight: theme.typography.fontWeight.normal,         // 400 weight from design.json
+    lineHeight: theme.typography.lineHeight.caption,        // 18px line height from design.json
+    letterSpacing: theme.typography.letterSpacing.caption,  // 0.1px letter spacing from design.json
+    fontFamily: theme.typography.fontFamily.primary,        // SF Pro Display from design.json
     opacity: 0.9,
-    lineHeight: 16,
   },
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 40,
+    paddingVertical: theme.spacing[10],                      // 40px spacing
   },
   emptyText: {
-    color: '#9CA3AF',
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 8,
+    color: theme.colors.textSecondary,                       // Text secondary from design.json
+    fontSize: theme.typography.fontSize.lg,                  // 18px
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   emptySubtext: {
-    color: '#9CA3AF',
-    fontSize: 14,
+    color: theme.colors.textSecondary,                       // Text secondary from design.json
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
     textAlign: 'center',
   },
   quickAccessSection: {
-    backgroundColor: '#F9FAFB',
-    padding: 20,
-    marginTop: 20,
+    backgroundColor: theme.colors.backgroundShades.secondary, // Light gray background from design.json
+    padding: theme.spacing[5],                               // 20px spacing
+    marginTop: theme.spacing[5],                             // 20px spacing
   },
   sectionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 16,
+    fontSize: theme.typography.fontSize.lg,                  // 18px
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[4],                          // 16px spacing
   },
   quickAccessGrid: {
     flexDirection: 'row',
@@ -273,38 +288,32 @@ const styles = StyleSheet.create({
   },
   quickAccessButton: {
     width: '48%',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: theme.colors.surface,                   // Surface white from design.json
+    borderRadius: theme.radius.medium,                       // radius_medium 12px from design.json
+    padding: theme.spacing[4],                               // 16px padding from design.json
     alignItems: 'center',
-    marginBottom: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
+    marginBottom: theme.spacing[3],                          // 12px spacing
+    ...theme.shadows.card,                                   // Elevation 2 from design.json
   },
   quickAccessIcon: {
-    fontSize: 32,
-    marginBottom: 8,
+    fontSize: theme.iconography.sizeLarge,                   // 32px size_large from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
   },
   quickAccessText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: '#374151',
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    fontWeight: theme.typography.fontWeight.medium,          // 500 weight
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    letterSpacing: theme.typography.letterSpacing.caption,   // 0.1px letter spacing from design.json
     textAlign: 'center',
   },
   featuredSection: {
-    padding: 20,
+    padding: theme.spacing[5],                               // 20px spacing
   },
   featuredOutlet: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
-    shadowRadius: 6,
-    elevation: 3,
+    backgroundColor: theme.colors.surface,                   // Surface white from design.json
+    borderRadius: theme.radius.medium,                       // radius_medium 12px from design.json
+    ...theme.shadows.card,                                   // Elevation 2 from design.json
     overflow: 'hidden',
   },
   featuredImage: {
@@ -312,37 +321,41 @@ const styles = StyleSheet.create({
     height: 160,
   },
   featuredContent: {
-    padding: 16,
+    padding: theme.spacing[4],                               // 16px padding from design.json
   },
   featuredName: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#111827',
-    marginBottom: 4,
+    fontSize: theme.typography.fontSize.lg,                  // 18px
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    color: theme.colors.textPrimary,                        // Text primary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[1],                          // 4px spacing
   },
   featuredBrand: {
-    fontSize: 12,
-    color: '#D4AF37',
-    fontWeight: '500',
-    marginBottom: 8,
+    fontSize: theme.typography.fontSize.xs,                  // 12px
+    color: theme.colors.primary,                            // Primary #957530 from design.json
+    fontWeight: theme.typography.fontWeight.medium,          // 500 weight
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[2],                          // 8px spacing
     textTransform: 'uppercase',
   },
   featuredAddress: {
-    fontSize: 14,
-    color: '#6B7280',
-    marginBottom: 16,
-    lineHeight: 20,
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    color: theme.colors.textSecondary,                      // Text secondary from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
+    marginBottom: theme.spacing[4],                          // 16px spacing
+    lineHeight: theme.typography.lineHeight.caption,         // 18px line height from design.json
   },
   viewDetailsButton: {
-    backgroundColor: '#D4AF37',
-    borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    backgroundColor: theme.colors.primary,                   // Primary #957530 from design.json
+    borderRadius: theme.radius.small,                        // radius_small 8px from design.json
+    paddingVertical: theme.spacing[3],                       // 12px padding
+    paddingHorizontal: theme.spacing[6],                     // 24px padding
     alignSelf: 'flex-start',
   },
   viewDetailsText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '600',
+    color: theme.colors.surface,                            // White text from design.json
+    fontSize: theme.typography.fontSize.caption,             // 13px caption from design.json
+    fontWeight: theme.typography.fontWeight.semibold,        // 600 weight from design.json
+    fontFamily: theme.typography.fontFamily.primary,         // SF Pro Display from design.json
   },
 }); 
