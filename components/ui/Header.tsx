@@ -12,6 +12,7 @@ interface HeaderProps {
   showSearch?: boolean;
   onNotificationPress?: () => void;
   onSearchPress?: () => void;
+  onUserPress?: () => void;
 }
 
 export function Header({
@@ -21,6 +22,7 @@ export function Header({
   showSearch = false,
   onNotificationPress,
   onSearchPress,
+  onUserPress,
 }: HeaderProps) {
   const { profile, user } = useAuthStore();
   
@@ -35,15 +37,19 @@ export function Header({
         {showUser && user ? (
           <View style={styles.userSection}>
             <Text style={styles.userName}>{displayName.toUpperCase()}</Text>
-            <View style={styles.pointsContainer}>
-              <Text style={styles.pointsText}>{points} U+Points</Text>
+            <TouchableOpacity 
+              style={styles.pointsContainer}
+              onPress={onUserPress}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.pointsText}>{points} Ark Points</Text>
               <Text style={styles.tierBadge}>{tierName}</Text>
               <IconSymbol 
                 name="chevron.right" 
                 size={16} 
                 color={theme.colors.primary}
               />
-            </View>
+            </TouchableOpacity>
           </View>
         ) : title ? (
           <View style={styles.titleSection}>
@@ -51,7 +57,7 @@ export function Header({
           </View>
         ) : (
           <View style={styles.pointsOnlySection}>
-            <Text style={styles.pointsLabel}>MY U+POINTS</Text>
+            <Text style={styles.pointsLabel}>MY ARK POINTS</Text>
             <View style={styles.pointsDisplay}>
               <Text style={styles.pointsValue}>{points}</Text>
               <IconSymbol 

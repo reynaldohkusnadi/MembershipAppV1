@@ -103,18 +103,18 @@ export function RedemptionModal({ visible, onClose, reward }: RedemptionModalPro
                   <Text style={styles.rewardDescription}>{reward.description}</Text>
                 )}
                 
-                <View style={styles.costContainer}>
+                <View style={styles.costRow}>
                   <Text style={styles.costLabel}>Cost:</Text>
-                  <Text style={styles.costValue}>{reward.cost} U+Points</Text>
+                  <Text style={styles.costValue}>{reward.cost} Ark Points</Text>
                 </View>
 
-                <View style={styles.balanceContainer}>
+                <View style={styles.balanceRow}>
                   <Text style={styles.balanceLabel}>Your Balance:</Text>
                   <Text style={[
                     styles.balanceValue,
-                    { color: canAfford ? theme.colors.success : theme.colors.statusError }
+                    !canAfford && styles.insufficientBalance
                   ]}>
-                    {profile?.points || 0} U+Points
+                    {profile?.points || 0} Ark Points
                   </Text>
                 </View>
               </View>
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     lineHeight: 24,
   },
-  costContainer: {
+  costRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: theme.colors.brand.gold,
   },
-  balanceContainer: {
+  balanceRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -296,6 +296,9 @@ const styles = StyleSheet.create({
   balanceValue: {
     fontSize: 18,
     fontWeight: '600',
+  },
+  insufficientBalance: {
+    color: theme.colors.statusError,
   },
   footer: {
     flexDirection: 'row',

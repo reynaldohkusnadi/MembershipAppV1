@@ -47,12 +47,17 @@ export default function HomeScreen() {
     console.log('Navigate to outlets');
   };
 
+  const handleUserProfilePress = () => {
+    router.push('/profile');
+  };
+
   return (
     <View style={styles.container}>
       <Header
         showUser={true}
         showNotification={true}
         onNotificationPress={() => console.log('Notification pressed')}
+        onUserPress={handleUserProfilePress}
       />
       
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>

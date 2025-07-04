@@ -22,9 +22,9 @@ export function RewardCard({
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={{ uri: imageUrl }} style={styles.image} resizeMode="cover" />
       <View style={styles.content}>
-        <Text style={styles.brand}>{brand}</Text>
-        <Text style={styles.title} numberOfLines={2}>{title}</Text>
-        <Text style={styles.points}>{pointsCost} U+Points</Text>
+                  <Text style={styles.brand}>{brand}</Text>
+          <Text style={styles.title} numberOfLines={2}>{title}</Text>
+          <Text style={styles.points}>{pointsCost} Ark Points</Text>
       </View>
     </TouchableOpacity>
   );

@@ -14,19 +14,30 @@ import {
 import QRCode from 'react-native-qrcode-svg';
 
 export default function ProfileScreen() {
-  const { profile, user } = useAuthStore();
+  const { 
+    profile, 
+    user, 
+    getCurrentTier, 
+    getNextTier, 
+    getPointsToNextTier 
+  } = useAuthStore();
   const [showQRModal, setShowQRModal] = useState(false);
 
-  // Mock data for development - replace with real data from profile/auth store
+  // Use real data from auth store instead of mock data
+  const currentTier = getCurrentTier();
+  const nextTier = getNextTier();
+  const pointsToNext = getPointsToNextTier();
+  
+  // Use actual profile data or fallback values
   const userProfile = {
-    name: 'REYNALDO KUSNADI',
-    id: 'SKZ3V8',
-    tier: 'SILVER',
-    nextTier: 'GOLD',
-    points: 500,
-    pointsToNext: 15000000,
-    currency: 'IDR',
-    expiryDate: '30 Jun 2026',
+    name: profile?.display_name?.toUpperCase() || user?.email?.split('@')[0]?.toUpperCase() || 'MEMBER',
+    id: user?.id?.slice(-6).toUpperCase() || 'MEMBER',
+    tier: currentTier?.name?.toUpperCase() || 'BRONZE',
+    nextTier: nextTier?.name?.toUpperCase() || 'SILVER',
+    points: profile?.points || 0,
+    pointsToNext: pointsToNext,
+    currency: 'Ark',
+    expiryDate: '30 Jun 2026', // This would come from points ledger expiry logic
   };
 
   const generateQRData = () => {
@@ -42,8 +53,8 @@ export default function ProfileScreen() {
 
   const menuItems = [
     {
-      title: 'U+POINTS EXPIRY',
-      subtitle: `${userProfile.points} U+Points will expire in ${userProfile.expiryDate}`,
+      title: 'ARK POINTS EXPIRY',
+      subtitle: `${userProfile.points} Ark Points will expire in ${userProfile.expiryDate}`,
       onPress: () => console.log('Points expiry pressed'),
     },
     {
@@ -100,20 +111,23 @@ export default function ProfileScreen() {
           <View style={styles.tierProgress}>
             <Text style={styles.currentTier}>{userProfile.tier}</Text>
             <View style={styles.progressBar}>
-              <View style={styles.progressFill} />
+              <View style={[
+                styles.progressFill,
+                { width: nextTier ? `${Math.min(100, (userProfile.points / nextTier.min_points) * 100)}%` : '100%' }
+              ]} />
             </View>
             <Text style={styles.nextTier}>{userProfile.nextTier}</Text>
           </View>
           
           <Text style={styles.tierProgressText}>
-            {userProfile.currency} {userProfile.pointsToNext.toLocaleString()} to {userProfile.nextTier} status
+            {userProfile.pointsToNext} points to {userProfile.nextTier} status
           </Text>
         </View>
 
         {/* Points Section */}
         <View style={styles.pointsSection}>
           <Text style={styles.pointsAmount}>{userProfile.points}</Text>
-          <Text style={styles.pointsLabel}>U+Points</Text>
+          <Text style={styles.pointsLabel}>Ark Points</Text>
         </View>
 
         {/* Menu Items */}
@@ -169,7 +183,7 @@ export default function ProfileScreen() {
             <View style={styles.qrInfo}>
               <Text style={styles.qrInfoName}>{userProfile.name}</Text>
               <Text style={styles.qrInfoId}>ID: {userProfile.id}</Text>
-              <Text style={styles.qrInfoPoints}>{userProfile.points} U+Points</Text>
+              <Text style={styles.qrInfoPoints}>{userProfile.points} Ark Points</Text>
             </View>
 
             <TouchableOpacity
@@ -233,7 +247,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.spacing[4],
   },
   userName: {
-    fontSize: theme.typography.fontSize.headingSm,
+    fontSize: theme.typography.fontSize.title,
     fontWeight: '600',
     color: theme.colors.text.primary,
     textAlign: 'center',
@@ -306,7 +320,7 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.gray[200],
   },
   pointsAmount: {
-    fontSize: theme.typography.fontSize.displayLg,
+    fontSize: theme.typography.fontSize.displayLarge,
     fontWeight: '700',
     color: theme.colors.text.primary,
   },
@@ -360,7 +374,7 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   modalTitle: {
-    fontSize: theme.typography.fontSize.headingMd,
+    fontSize: theme.typography.fontSize.headline,
     fontWeight: '600',
     color: theme.colors.text.primary,
     marginBottom: theme.spacing[2],
